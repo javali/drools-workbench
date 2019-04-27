@@ -29,6 +29,6 @@ If you have an existing BPM project, you have to import the project by the proje
 ### Check out repository
 The default checkout-URL is *ssh://admin@localhost:8001/MySpace* followed by the name of your BPM project. If this is "my-test", you have to checkout with this URL:  
 ```
-ssh://admin@localhost:8001/MySpace/mein-test
+ssh://admin@localhost:8001/MySpace/my-test
 ```    
 
