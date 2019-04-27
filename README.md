@@ -1,11 +1,19 @@
 #### Docker stack jBPMn Workbench
-
-&copy; 2019 Jan van Lil  
 based on drools workbench / business central 7.15.0.Final
 
+### Install
+* Windows  
+run the *run-dev.bat*
+* Linux  
+run *docker-compose build && docker-compose up -d*
+
+__Please wait for servers to load.__
+
+### Login URL
 [local workbench](http://localhost:28080/drools-wb/kie-wb.jsp)
 (http://localhost:28080/drools-wb)
 
+### Usernames and passwords
 |USER        |PASSWORD    |ROLE    |
 | ---------- |------------|-----------|
 |admin       |admin       |admin,analyst,kiemgmt
