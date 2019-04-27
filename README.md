@@ -1,4 +1,4 @@
-#### Docker stack jBPMn Workbench
+## Docker stack jBPMn Workbench
 based on drools workbench / business central 7.15.0.Final
 
 ### Install
@@ -23,12 +23,19 @@ __Please wait for servers to load.__
 |katy        |katy        |analyst,HR
 |jack        |jack        |analyst,IT
 
-### Import repository
-If you have an existing BPM project, you have to import the project by the projects repository. You will need to have READ access to this repo.
-
 ### Check out repository
 The default checkout-URL is *ssh://admin@localhost:8001/MySpace* followed by the name of your BPM project. If this is "my-test", you have to checkout with this URL:  
 ```
 ssh://admin@localhost:8001/MySpace/my-test
 ```    
+- your work is automatically pushed to this repo so you should not write to it from outside as long as you know what you are doing
+
+#### Usecase "existing" (concept)
+*there is an existing jBPM-project you want to import, edit and export to e.g.CI*  
+__use a second remote location in your git repo for the CI-repo__
+
+- pull your repo.master (workbench-master)
+- create branch in you repo, e.g. "changes-from-workbench"
+- push "changes-from-workbench" to ci-repo
+- create pullrequest "changes-from-workbench" to master in CI-repo
 
