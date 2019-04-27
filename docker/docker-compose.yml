@@ -23,11 +23,6 @@ services:
     depends_on:
       - drools-wb
     environment:
-      # KIE Workbench environment variables
-      # Neccessary to connect the KIE server to the KIE workbench
-#      - KIE_WB_PORT_8080_TCP=tcp://kie_wb:8080
-#      - KIE_WB_ENV_KIE_CONTEXT_PATH=drools-wb
-#      - KIE_WB_PORT_8080_TCP_ADDR=kie_wb
       - KIE_WB_PORT_8080_TCP=tcp://kie_wb:8080
       - KIE_WB_ENV_KIE_CONTEXT_PATH=drools-wb
       - KIE_WB_PORT_8080_TCP_ADDR=kie_wb
