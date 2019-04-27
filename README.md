@@ -15,4 +15,6 @@ based on drools workbench / business central 7.15.0.Final
 |katy        |katy        |analyst,HR
 |jack        |jack        |analyst,IT
 
+### Import repository
+If you have an existing BPM project, you have to import the project by the projects repository. You will need to have READ access to this repo.
 

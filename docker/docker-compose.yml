@@ -10,6 +10,7 @@ services:
     ports:
       - 8001:8001
       - 28080:8080
+    network_mode: default
 
   kie-server:
     container_name: kie-server
@@ -18,11 +19,15 @@ services:
       - drools-wb:kie_wb
     ports:
       - 8080:8080
+    network_mode: default
     depends_on:
       - drools-wb
     environment:
       # KIE Workbench environment variables
       # Neccessary to connect the KIE server to the KIE workbench
+#      - KIE_WB_PORT_8080_TCP=tcp://kie_wb:8080
+#      - KIE_WB_ENV_KIE_CONTEXT_PATH=drools-wb
+#      - KIE_WB_PORT_8080_TCP_ADDR=kie_wb
       - KIE_WB_PORT_8080_TCP=tcp://kie_wb:8080
       - KIE_WB_ENV_KIE_CONTEXT_PATH=drools-wb
       - KIE_WB_PORT_8080_TCP_ADDR=kie_wb
