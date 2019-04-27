@@ -4,14 +4,16 @@ services:
 
   drools-wb:
     container_name: drools-wb
-    image: jboss/drools-workbench-showcase:7.10.0.Final
+    build:
+      dockerfile: Dockerfile
+      context: ./drools-workbench
     ports:
       - 8001:8001
       - 28080:8080
 
   kie-server:
     container_name: kie-server
-    image: jboss/kie-server-showcase:7.10.0.Final
+    image: jboss/kie-server-showcase:7.15.0.Final
     links:
       - drools-wb:kie_wb
     ports:
