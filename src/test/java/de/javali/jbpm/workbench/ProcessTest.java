@@ -4,8 +4,6 @@ import de.javali.jbpm.AbstractJbpmJUnitTestBase;
 import org.drools.core.command.runtime.process.SetProcessInstanceVariablesCommand;
 import org.drools.core.time.impl.PseudoClockScheduler;
 import org.junit.Test;
-import org.kie.api.runtime.KieSession;
-import org.kie.api.runtime.manager.RuntimeEngine;
 import org.kie.api.runtime.process.ProcessInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

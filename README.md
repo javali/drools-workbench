@@ -23,6 +23,12 @@ __Please wait for servers to load.__
 |katy        |katy        |analyst,HR
 |jack        |jack        |analyst,IT
 
+### Usage
+Please check the tests for usage examples.
+```
+de.javali.jbpm.workbench.ProcessTest
+```    
+
 ### Check out repository
 The default checkout-URL is *ssh://admin@localhost:8001/MySpace* followed by the name of your BPM project. If this is "my-test", you have to checkout with this URL:  
 ```
