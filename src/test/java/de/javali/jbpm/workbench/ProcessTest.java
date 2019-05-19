@@ -1,6 +1,6 @@
 package de.javali.jbpm.workbench;
 
-import de.javali.jbpm.AbstractJbpmJUnitBaseTest;
+import de.javali.jbpm.AbstractJbpmJUnitTestBase;
 import org.drools.core.command.runtime.process.SetProcessInstanceVariablesCommand;
 import org.drools.core.time.impl.PseudoClockScheduler;
 import org.junit.Test;
@@ -21,17 +21,32 @@ import java.util.concurrent.TimeUnit;
  * <p>
  * http://www.mtitek.com/tutorials/apps/bpm/hello-jbpm.php
  * https://docs.jboss.org/jbpm/release/7.14.0.Final/jbpm-docs/html_single/
+ * https://www.programcreek.com/java-api-examples/?class=org.kie.api.runtime.KieSession&method=startProcess
  */
-public class ProcessTest extends AbstractJbpmJUnitBaseTest {
+public class ProcessTest extends AbstractJbpmJUnitTestBase {
 
 	private static final Logger LOG = LoggerFactory.getLogger(ProcessTest.class);
 
 	@Test
+	public void testProcessExecution_bpmn2LegacyProcess_succeeds() {
+
+		createRuntime("timer.bpmn2");
+
+		ProcessInstance processInstance = kieSession.startProcess("de.javali.jbpm.process.timer");
+		Map<String, Object> variables = new HashMap<>();
+		variables.put("timestamp", "startvalue");
+
+		kieSession.execute(new SetProcessInstanceVariablesCommand(processInstance.getId(), variables));
+
+		assertProcessInstanceNotActive(processInstance.getId(), kieSession);
+
+		dispose();
+	}
+
+	@Test
 	public void testProcessExecution() {
 
-		runtimeManager = createRuntimeManager("timestamp.bpmn");
-		RuntimeEngine runtimeEngine = getRuntimeEngine(null);
-		KieSession kieSession = runtimeEngine.getKieSession();
+		createRuntime("timestamp.bpmn");
 		ProcessInstance processInstance = kieSession.startProcess("process.timestamp");
 
 		Map<String, Object> variables = new HashMap<>();
@@ -42,15 +57,12 @@ public class ProcessTest extends AbstractJbpmJUnitBaseTest {
 		assertProcessInstanceNotActive(processInstance.getId(), kieSession);
 		assertNodeTriggered(processInstance.getId(), "log timestamp");
 
-		runtimeManager.disposeRuntimeEngine(runtimeEngine);
-		runtimeManager.close();
+		dispose();
 	}
 
 	@Test
 	public void testProcessExecution_withInitialVariableSet_executedWithValue() {
-		runtimeManager = createRuntimeManager("timestamp.bpmn");
-		RuntimeEngine runtimeEngine = getRuntimeEngine(null);
-		KieSession kieSession = runtimeEngine.getKieSession();
+		createRuntime("timestamp.bpmn");
 
 		Map<String, Object> params = new HashMap<>();
 		params.put("timestamp", "initial value");
@@ -59,8 +71,7 @@ public class ProcessTest extends AbstractJbpmJUnitBaseTest {
 		assertProcessInstanceNotActive(processInstance.getId(), kieSession);
 		assertNodeTriggered(processInstance.getId(), "log timestamp");
 
-		runtimeManager.disposeRuntimeEngine(runtimeEngine);
-		runtimeManager.close();
+		dispose();
 	}
 
 	/**
@@ -70,10 +81,7 @@ public class ProcessTest extends AbstractJbpmJUnitBaseTest {
 	public void testProcessExecution_withPseudoTimeScale_executedWithValue() {
 		System.setProperty("drools.clockType", "pseudo");
 
-		runtimeManager = createRuntimeManager("timer2.bpmn");
-		RuntimeEngine runtimeEngine = getRuntimeEngine(null);
-		KieSession kieSession = runtimeEngine.getKieSession();
-
+		createRuntime("timer2.bpmn");
 		PseudoClockScheduler sessionClock = kieSession.getSessionClock();
 
 		Map<String, Object> params = new HashMap<>();
@@ -88,8 +96,7 @@ public class ProcessTest extends AbstractJbpmJUnitBaseTest {
 		assertProcessInstanceNotActive(processInstance.getId(), kieSession);
 		assertNodeTriggered(processInstance.getId(), "Task");
 
-		runtimeManager.disposeRuntimeEngine(runtimeEngine);
-		runtimeManager.close();
+		dispose();
 	}
 
 	private void logTime(long currentTime) {
